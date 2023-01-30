@@ -1,0 +1,55 @@
+<h4 mat-dialog-title>User Register Form</h4>
+<div mat-dialog-content>
+    <form [formGroup]="userRegForm">
+        <mat-form-field appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input formControlName="userName" matInput placeholder="Enter User Name">
+        </mat-form-field>
+    
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>DOB</mat-label>
+            <input formControlName="DOB" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    
+        
+        <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city">
+                <mat-option *ngFor="let city of cityList" [value]="city">{{city}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+          <label id="example-radio-group-label">Gender</label>
+            <mat-radio-group formControlName="gender"
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+            >
+            <mat-radio-button class="example-radio-button" *ngFor="let gender of genderOptions" [value]="gender">
+                {{gender}}
+            </mat-radio-button>
+            </mat-radio-group>
+    
+            <mat-form-field appearance="outline" *ngIf="!editUser">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" type="password" matInput placeholder="Enter Password">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" *ngIf="!editUser">
+                <mat-label>Confirm Password</mat-label>
+                <input formControlName="confirmPassword" type="password" matInput placeholder="Enter Confirm Password">
+            </mat-form-field>
+    
+            <label id="check-box-area">Work Status : </label>
+            <mat-checkbox formControlName="active" aria-labelledby="check-box-area" class="example-margin">Active</mat-checkbox>
+    </form>
+
+        <div mat-dialog-action [align]="'end'"> 
+            <button class="me-2" mat-raised-button color="warn" mat-dialog-close>Close</button>
+            <button mat-raised-button color="primary" (click)="SaveOrUpdateClicked()">{{saveOrUpdateBtn}}</button>
+        </div>
+</div>

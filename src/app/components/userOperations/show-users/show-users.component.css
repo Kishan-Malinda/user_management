@@ -1,0 +1,36 @@
+td{
+    font-family: 'Kanit', sans-serif;
+}
+table {
+    width: 100%;
+}
+.mat-mdc-form-field {
+   font-size: 14px;
+   width: 100%;
+}
+  
+.actionButtons{
+    all: unset;
+    cursor: pointer;
+    font-size: 1.125rem;
+    color: rgb(104, 99, 99);
+  }
+
+  .deleteBtn:hover{
+    color: #fd085a;
+  }
+  .editBtn:hover{
+    color: #20c411;
+  }
+
+ .add_user{
+  justify-content: center;
+  align-items: center;
+ }
+ .add_user  button  {
+  font-size: 1rem;
+ }
+ .add_user  button i {
+  font-size: 1.3rem;
+  margin-right: 1rem;
+ }
