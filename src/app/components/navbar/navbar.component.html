@@ -12,7 +12,7 @@
           <li class="nav-item"  *ngFor="let link of navigationLinks">
             <a class="nav-link" aria-current="page"
               (click)="activeLink = link.navItem"
-              [class.active]="activeLink == link.navItem"
+              [class.active]="activeLink === link.navItem"
               [routerLink]="[link.navLink]"
             >{{link.navItem}}</a>
           </li>

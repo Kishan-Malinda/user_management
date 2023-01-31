@@ -29,13 +29,16 @@ export class AddEditUserComponent implements OnInit{
       }
     })
     this.userRegForm = this.formBuilder.group({
-      userName : ['',Validators.required], 
-      DOB :  ['',Validators.required],
-      city :  ['',Validators.required],
-	    gender :  ['',Validators.required],
-	    password : ['',Validators.required],
-      confirmPassword : ['',Validators.required],
-	    active: ['',Validators.required],
+      userName : ['',Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9_ -]*')])], 
+      DOB :  ['',[Validators.required]],
+      city :  ['',[Validators.required]],
+	    gender :  ['',[Validators.required]],
+	    password : ['',Validators.compose([Validators.required, Validators.minLength(8)])],
+      confirmPassword : ['',[Validators.required,Validators.minLength(8), Validators.maxLength(20)]],
+	    active: [''],
+    },
+    {
+      validators : this.mustMatchPwd('password','confirmPassword')
     });
     if(this.editUser){
       this.saveOrUpdateBtn = 'Update';
@@ -73,6 +76,8 @@ export class AddEditUserComponent implements OnInit{
   updateUser(){
     this.userRegForm.value["userID"]= this.editUser.userID;
     delete this.userRegForm.value.password;
+    console.log(this.userRegForm.value.DOB);
+    
     this.userService.updateUser(this.userRegForm.value).subscribe({
       next: (res) =>{
         this.responseObj = res;
@@ -86,5 +91,21 @@ export class AddEditUserComponent implements OnInit{
         this.toastr.error("Error Occured","Error");
       }
     });    
+  }
+  mustMatchPwd(password : any, confirmPassword :any ) {
+    return (formGroup : FormGroup)=>{
+      const passwordControl = formGroup.controls[password];
+      const conPasswordControl = formGroup.controls[confirmPassword];
+
+      if(conPasswordControl.errors && !conPasswordControl.errors['mustMatchPwd']){
+        return;
+      }
+      if(passwordControl.value !== conPasswordControl.value){
+        conPasswordControl.setErrors({mustMatchPwd : true});
+      }else{
+        conPasswordControl.setErrors(null);
+      }
+
+    }
   }
 }

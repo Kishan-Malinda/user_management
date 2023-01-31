@@ -4,16 +4,18 @@
         <mat-form-field appearance="outline">
             <mat-label>User Name</mat-label>
             <input formControlName="userName" matInput placeholder="Enter User Name">
+            <mat-error *ngIf="userRegForm.get('userName')?.hasError('required')">Please Enter User Name</mat-error>
+            <mat-error *ngIf="userRegForm.get('userName')?.hasError('pattern')">Please Enter Valid User Name</mat-error>
         </mat-form-field>
-    
+            
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>DOB</mat-label>
             <input formControlName="DOB" matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="userRegForm.get('DOB')?.hasError('required')">Please Select DOB</mat-error>
         </mat-form-field>
     
         
@@ -22,8 +24,10 @@
             <mat-select formControlName="city">
                 <mat-option *ngFor="let city of cityList" [value]="city">{{city}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="userRegForm.get('city')?.hasError('required')">Please Select City</mat-error>
         </mat-form-field>
-    
+        
+        
           <label id="example-radio-group-label">Gender</label>
             <mat-radio-group formControlName="gender"
                 aria-labelledby="example-radio-group-label"
@@ -33,23 +37,32 @@
                 {{gender}}
             </mat-radio-button>
             </mat-radio-group>
-    
+       
+
             <mat-form-field appearance="outline" *ngIf="!editUser">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" type="password" matInput placeholder="Enter Password">
+                <mat-error *ngIf="userRegForm.get('password')?.hasError('required')">Please Enter Password</mat-error>
+                <mat-error *ngIf="userRegForm.get('password')?.hasError('minlength')">Password must have atleast 8 Characters</mat-error>
+                <mat-error *ngIf="userRegForm.get('password')?.hasError('maxlength')">Password must below 20 Characters</mat-error>
             </mat-form-field>
     
             <mat-form-field appearance="outline" *ngIf="!editUser">
                 <mat-label>Confirm Password</mat-label>
                 <input formControlName="confirmPassword" type="password" matInput placeholder="Enter Confirm Password">
+                <mat-error *ngIf="userRegForm.get('confirmPassword')?.hasError('required')">Please Enter Password</mat-error>
+                <mat-error *ngIf="userRegForm.get('confirmPassword')?.hasError('minlength')">Password must have atleast 8 Characters</mat-error>
+                <mat-error *ngIf="userRegForm.get('confirmPassword')?.hasError('maxlength')">Password must below 20 Characters</mat-error>
+                <mat-error *ngIf="userRegForm.get('confirmPassword')?.hasError('mustMatchPwd')">PASSWORDS DO NOT MATCH</mat-error>
             </mat-form-field>
     
             <label id="check-box-area">Work Status : </label>
-            <mat-checkbox formControlName="active" aria-labelledby="check-box-area" class="example-margin">Active</mat-checkbox>
+            <mat-checkbox formControlName="active" aria-labelledby="check-box-area">Active</mat-checkbox>
+                       
     </form>
 
         <div mat-dialog-action [align]="'end'"> 
             <button class="me-2" mat-raised-button color="warn" mat-dialog-close>Close</button>
-            <button mat-raised-button color="primary" (click)="SaveOrUpdateClicked()">{{saveOrUpdateBtn}}</button>
+            <button mat-raised-button color="primary" [disabled]="!userRegForm.valid" (click)="SaveOrUpdateClicked()">{{saveOrUpdateBtn}}</button>
         </div>
 </div>

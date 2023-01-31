@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  activeLink : any; 
+  activeLink : string = '/'; 
   ngOnInit() : void{
-    this.activeLink = '/';
+    
   }
   navigationLinks = [ {navItem: 'Home', navLink : '/'}, 
           {navItem: 'Users', navLink : 'users'},
