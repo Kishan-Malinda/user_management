@@ -3,14 +3,14 @@
     <form [formGroup]="userRegForm">
         <mat-form-field appearance="outline">
             <mat-label>User Name</mat-label>
-            <input formControlName="userName" matInput placeholder="Enter User Name">
+            <input formControlName="userName" matInput placeholder="Enter User Name" autocomplete="off">
             <mat-error *ngIf="userRegForm.get('userName')?.hasError('required')">Please Enter User Name</mat-error>
             <mat-error *ngIf="userRegForm.get('userName')?.hasError('pattern')">Please Enter Valid User Name</mat-error>
         </mat-form-field>
             
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>DOB</mat-label>
-            <input formControlName="DOB" matInput [matDatepicker]="picker">
+            <input formControlName="DOB" matInput [matDatepicker]="picker" autocomplete="off">
             <mat-datepicker-toggle matIconSuffix [for]="picker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
@@ -63,6 +63,6 @@
 
         <div mat-dialog-action [align]="'end'"> 
             <button class="me-2" mat-raised-button color="warn" mat-dialog-close>Close</button>
-            <button mat-raised-button color="primary" [disabled]="!userRegForm.valid" (click)="SaveOrUpdateClicked()">{{saveOrUpdateBtn}}</button>
+            <button mat-raised-button color="primary" [disabled]="!userRegForm.valid && !editUser" (click)="SaveOrUpdateClicked()">{{saveOrUpdateBtn}}</button>
         </div>
 </div>

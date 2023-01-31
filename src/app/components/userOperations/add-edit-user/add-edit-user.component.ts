@@ -53,6 +53,9 @@ export class AddEditUserComponent implements OnInit{
     delete this.userRegForm.value.confirmPassword;
     if(!this.editUser){
       if(this.userRegForm.valid){
+        if(this.userRegForm.value.active===''){
+          this.userRegForm.value.active = 'false'
+        }
         console.log(this.userRegForm.value);
         
         this.userService.addUser(this.userRegForm.value).subscribe({
